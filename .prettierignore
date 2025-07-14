@@ -1,0 +1,11 @@
+node_modules
+build
+.expo
+.vscode
+.prettierrc
+app.json
+package.json
+package-lock.json
+tsconfig.json
+eslint.config.js
+README.md
