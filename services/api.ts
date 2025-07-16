@@ -7,7 +7,7 @@ const TMDB_CONFIG = {
   },
 };
 
-const fetchPopularMovies = async ({ query }: { query: string }) => {
+const fetchMovies = async ({ query }: { query: string }) => {
   const endpoint = query
     ? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
     : `${TMDB_CONFIG.BASE_URL}/discover/movie?sort_by=popularity.desc`;
@@ -27,4 +27,4 @@ const fetchPopularMovies = async ({ query }: { query: string }) => {
   return data.results;
 };
 
-export { fetchPopularMovies, TMDB_CONFIG };
+export { fetchMovies, TMDB_CONFIG };
