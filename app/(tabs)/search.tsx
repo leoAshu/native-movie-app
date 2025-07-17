@@ -16,16 +16,12 @@ const Search = () => {
     error,
     refetch: loadMovies,
     reset,
-  } = useFetch(() => fetchMovies({ query: searchQuery }), false);
+  } = useFetch(() => fetchMovies({ query: searchQuery.trim() }), false);
 
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies();
-
-        if (movies?.length > 0 && movies?.[0]) {
-          await updateSearchCount(searchQuery, movies[0]);
-        }
       } else {
         reset();
       }
@@ -33,6 +29,12 @@ const Search = () => {
 
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
+
+  useEffect(() => {
+    if (movies?.length > 0 && movies?.[0]) {
+      updateSearchCount(searchQuery.trim(), movies[0]);
+    }
+  }, [movies]);
 
   return (
     <View className='flex-1 bg-primary'>
@@ -68,7 +70,7 @@ const Search = () => {
               <SearchBar
                 placeholder='Search movies...'
                 value={searchQuery}
-                onChangeText={(text) => setSearchQuery(text.trim())}
+                onChangeText={(text) => setSearchQuery(text)}
               />
             </View>
 
